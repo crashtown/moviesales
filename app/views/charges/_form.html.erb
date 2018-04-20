@@ -1,0 +1,19 @@
+<%= form_tag charges_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <span><%= movie.price %></span>
+    </label>
+  </article>
+  <%= hidden_field_tag :movie_id, movie.id %>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="<%=movie.title%> $<%= movie.price %>"
+          data-amount= "<%=movie.price%>"
+          data-locale="auto"></script>
+<% end %>
